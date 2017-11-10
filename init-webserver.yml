@@ -1,3 +1,5 @@
 - hosts: webservers
   roles:
-    - init-webservers
+    - ping-servers
+    - update-upgrade-servers
+    - install-dev-tools

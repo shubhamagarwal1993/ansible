@@ -1,8 +1,5 @@
 ---
 
-- name: Pings server
-  ping:
-
 - name : Update and Upgrade server
   become: true
   apt:
