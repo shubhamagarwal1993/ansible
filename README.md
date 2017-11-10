@@ -69,6 +69,12 @@ Why use Ansible:
       ```web1 ansible_host=52.91.170.213 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/web1.pem```
     - Run ```ansible all -i Desktop/hosts -m ping```. This should return a SUCCESS for both localhost and web1
 
+- running ansible
+  - run yml files in the following order
+    - ping-servers
+    - update-upgrade-servers
+    - install-dev-tools
+    
 -------------------------- DONE TILL HERE ------------------------------------
 More with ansible
 
