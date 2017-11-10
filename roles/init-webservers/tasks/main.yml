@@ -2,3 +2,10 @@
 
 - name: Pings server
   ping:
+
+- name : Update and Upgrade server
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: dist
+    cache_valid_time: 86400 #One day
