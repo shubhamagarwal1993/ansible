@@ -16,6 +16,9 @@ colo elflord
 " show line numbers
 set number
 
+" turn on syntax highlighting
+syntax on
+
 " set tabs to have 4 spaces
 set tabstop=4
 set softtabstop=4
