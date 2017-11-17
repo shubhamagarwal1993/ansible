@@ -1,0 +1,10 @@
+---
+
+- name: Installs nginx web server
+  become: true
+  apt: name=nginx state=installed update_cache=yes cache_valid_time=3600
+  notify:
+    - start nginx
+
+- name: Upload default index.html for host
+  copy: src=files/index.html dest=/usr/share/nginx/www/ mode=0644

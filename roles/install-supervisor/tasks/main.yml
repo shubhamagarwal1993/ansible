@@ -1,0 +1,9 @@
+---
+
+- name : Install supervisor
+  apt : name=supervisor state=present
+
+- name : ?????\\
+
+  Use of supervisor ??
+ - to keep nginx running if it crashs

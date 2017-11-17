@@ -1,0 +1,100 @@
+---
+
+## Create directory structure
+
+- name : Create /var/www/ directory
+  file : path=/var/www/ state=directory mode=0755 ????????????
+
+- name : Create /var/www/hosts directory
+  file : path=/var/www/vhosts state=directory mode=0755 ?????????
+
+- name : Create /var/www/vhosts/{{ domain }}
+  file : path=/var/www/vhosts/{{ domain }} state=directory mode=0755 ??????????
+
+- name : Clone git repo
+  git : >
+        dest=/var/www/vhosts/{{ domain }}
+        repo=git@github.com:shubhamagarwal1993@gmail.com/???? complete this link - abstract it if possible
+        update=yes
+        accept_hostkey=yes
+  	?????? complete this
+
+
+
+
+
+
+
+- name: Installs zlib
+  get_url: http://zlib.net/zlib-{{ zlib_version }}.tar.gz
+  dest: "{{ downloads_dir }}"
+  mode: 0644 ??????
+
+- name : Unarchive zlib
+  shell: 'tar xvf {{ downloads_dir }}zlib-{{ zlib_version }}.tar.gz -C {{ downloads_dir }}'
+
+- name : Unarchive zlib
+  command: './configure chdir={{ downloads_dir }}zlib-{{ zlib_version }}'
+
+- name : Run "make" on zlib
+  command: '"{{ item }}" chdir={{ downloads_dir }}zlib-{{ zlib_version }}'
+  with_items:
+    - make
+
+- name : Run "make install" on zlib
+  command: 'make install chdir={{ downloads_dir }}zlib-{{ zlib_version }}'
+
+## Nginx
+
+- name : Download nginx
+  get_url : https://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
+  dest: "{{ downloads_dir }}"
+
+- name : Unarchive nginx
+  shell: 'tar xvf {{ downloads_dir }}nginx-{{ nginx_version }}.tar.gz -C {{ downloads_dir }}'
+
+## Build nginx from source
+
+- name : Run "./configure" on nginx in {{ downloads_dir }}nginx-{{ nginx_version }}
+  command : './configure --conf-path=/etc/nginx/nginx.conf chdir="{{ downloads_dir }}nginx-{{ nginx_version }}"'
+
+- name : Run "make on nginx"
+  command: '"{{ item }}" chdir={{ downloads_dir }}nginx-{{ nginx_version }}'
+  with_items:
+    - make
+
+- name : Run "make install" on nginx
+  command: 'make install chdir={{ downloads_dir }}nginx-{{ nginx_version }}'
+
+- name : Copy "nginx.conf" file
+  template : src=nginx.conf dest=/etc/nginx/nginx.conf
+
+## Configure Nginx
+
+- name : Create sites-available folder
+  file : path=/etc/nginx/sites-available state=directory mode=0755 ??????????
+
+- name : Create sites-enabled folder
+  file : path=/etc/nginx/sites-enabled state=directory mode=0755 ?????????
+
+- name : Configure nginx
+  template : src={{ domain }}.conf dest=/etc/nginx/sites-available/{{ domain }}.conf
+  notify :
+    - restart nginx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

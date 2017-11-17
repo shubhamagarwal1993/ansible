@@ -9,6 +9,10 @@
 - name: Installs vim
   apt: name=vim state=present update_cache=yes cache_valid_time=3600
 
+- name : Installs mosh
+  become: true
+  apt : name=mosh state=present update_cache=yes cache_valid_time=3600
+
 - name: Copies vimrc file to remote server
   become: true
   copy: src=vimrc dest=/root/.vimrc mode=0644
