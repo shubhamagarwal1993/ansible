@@ -1,10 +1,38 @@
 ---
 
+## Create /var/www directory structure
+- name: create /var/www
+  file: path=/var/www state=directory mode=0755
+
+- name: create /var/www/vhosts
+  become: true
+  file: path=/var/www/vhosts state=directory mode=0755
+
+- name: create /var/www/vhosts/{{ domain }}
+  become: true
+  file: path=/var/www/vhosts/{{ domain }} state=directory mode=0755
+
+
+## Install nginx
 - name: Installs nginx web server
   become: true
   apt: name=nginx state=installed update_cache=yes cache_valid_time=3600
   notify:
     - start nginx
 
-- name: Upload default index.html for host
-  copy: src=files/index.html dest=/usr/share/nginx/www/ mode=0644
+## Configure nginx
+- name: configure nginx
+  become: true
+  template: src={{ domain }}.conf dest=/etc/nginx/sites-available/{{ domain }}.conf
+  notify:
+    - restart nginx
+
+- name: remove default symlink
+  become: true
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: create symlink
+  become: true
+  file: src=/etc/nginx/sites-available/{{ domain }}.conf dest=/etc/nginx/sites-enabled/{{ domain }}.conf owner=root group=root state=link
+  notify:
+    - restart nginx
