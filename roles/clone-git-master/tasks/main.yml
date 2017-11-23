@@ -1,32 +1,25 @@
 ---
 
+## Delete /var/www directory if it exists
+- name: Delete /var/www directory
+  become: true
+  file:
+    state: absent
+    path: /var/www/
+
 ## Create /var/www directory structure
 - name: create /var/www
+  become: true
   file: path=/var/www state=directory
 
-- name: create /var/www/html
+- name: create /var/www/vhosts
   become: true
-  file: path=/var/www/html state=directory
+  file: path=/var/www/vhosts state=directory
+
+- name: create /var/www/vhosts/{{ domain }}
+  become: true
+  file: path=/var/www/vhosts/{{ domain }} state=directory
 
 - name: Copies index.html file to remote server
   become: true
-  copy: src=index.html dest=/var/www/html/index.html
-
-##- name: initializes app/tmp
-##  file: path=/var/www/vhosts/{{ domain }}/{{ item }} state=directory mode=0777
-##  with_items:
-##    - app/tmp
-##    - app/tmp/logs
-##    - app/tmp/cache
-##    - app/tmp/cache/models
-##    - app/tmp/cache/persistent
-##    - app/tmp/cache/views
-##    - app/tmp/cache/acl
-##    - app/tmp/cache/misc
-##    - app/tmp/queue
-##    - app/tmp/purifier
-##    - app/tmp/rcr
-##    - app/tmp/csv
-##    - app/tmp/email
-
-
+  copy: src=files/index.html dest=/var/www/vhosts/{{ domain }}/index.html

@@ -4,42 +4,36 @@
 - name: Installs nginx web server
   become: true
   apt: name=nginx state=installed update_cache=yes cache_valid_time=3600
-  notify:
-    - start nginx
 
 ## Configure nginx
 - name: configure nginx
   become: true
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+## Copy {{ domain }}.conf file over to sites-available
+- name: configure nginx
+  become: true
   template: src={{ domain }}.conf dest=/etc/nginx/sites-available/{{ domain }}.conf
-  notify:
-    - restart nginx
 
 - name: remove default symlink
   become: true
   file: path=/etc/nginx/sites-enabled/default state=absent
+
+## Delete /etc/nginx/sites-enabled/ directory
+- name: Delete /etc/nginx/sites-enabled directory
+  become: true
+  file:
+    state: absent
+    path: /etc/nginx/sites-enabled
+
+## Create /etc/nginx/sites-enabled
+- name: create /etc/nginx/sites-enabled
+  become: true
+  file: path=/etc/nginx/sites-enabled state=directory
 
 - name: create symlink
   become: true
   file: src=/etc/nginx/sites-available/{{ domain }}.conf dest=/etc/nginx/sites-enabled/{{ domain }}.conf state=link
   notify:
     - restart nginx
-
-
-##- name: initializes app/tmp
-##  file: path=/var/www/vhosts/{{ domain }}/{{ item }} state=directory mode=0777
-##  with_items:
-##    - app/tmp
-##    - app/tmp/logs
-##    - app/tmp/cache
-##    - app/tmp/cache/models
-##    - app/tmp/cache/persistent
-##    - app/tmp/cache/views
-##    - app/tmp/cache/acl
-##    - app/tmp/cache/misc
-##    - app/tmp/queue
-##    - app/tmp/purifier
-##    - app/tmp/rcr
-##    - app/tmp/csv
-##    - app/tmp/email
-
 
