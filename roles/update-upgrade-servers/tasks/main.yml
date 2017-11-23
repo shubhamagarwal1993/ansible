@@ -7,6 +7,10 @@
     upgrade: dist
     cache_valid_time: 86400 #One day
 
-- name: Install build-essential
+- name: install utility packages
   become: true
-  apt: name=build-essential state=present update_cache=yes cache_valid_time=3600
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - build-essential
+    - git
+    - nginx
