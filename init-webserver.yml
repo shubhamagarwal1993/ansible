@@ -1,9 +1,9 @@
 - hosts: webservers
   roles:
-    - ping-servers
-    - update-upgrade-servers
+#    - ping-servers
+#    - update-upgrade-servers
     - install-dev-tools
 #    - clone-git-master
-    - install-nginx
+#    - install-nginx
 #    - install-renew-ssl-cert
 #    - install-supervisor
