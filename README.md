@@ -73,19 +73,8 @@ Why use Ansible:
 
   - Run on terminal `clear && ansible-playbook -i hosts init-webserver.yml`
 
-- running ansible
-  - run yml files in the following order
-    - ping-servers
-    - update-upgrade-servers
-    - install-dev-tools
-    
 -------------------------- DONE TILL HERE ------------------------------------
-Set up nginx
-
-- Some other tools to check if they are needed:
-  - npm
-    - install npm with `sudo apt-get install npm`
-  - gunicorn
+- Some other tools to add in the future:
   - db (use SQL for databases)
     - Use SQL designer; something very basic to design
     - Can fork it from here (https://github.com/ondras/wwwsqldesigner)
