@@ -3,7 +3,7 @@
 #    - ping-servers
 #    - update-upgrade-servers
 #    - install-dev-tools
-#    - clone-git-master
-    - install-nginx
+    - clone-git-master
+#    - install-nginx
 #    - install-renew-ssl-cert
 #    - install-supervisor

@@ -16,10 +16,22 @@
   become: true
   file: path=/var/www/vhosts state=directory
 
+- name: create /var/www/vhosts/projectDir
+  become: true
+  file: path=/var/www/vhosts/projectDir state=directory
+
+## Download files from github
+- name: Download project from folder
+  become: true
+  git:
+    repo: https://github.com/shubhamagarwal1993/pahlakhat.git
+    dest: /var/www/vhosts/projectDir
+
 - name: create /var/www/vhosts/{{ domain }}
   become: true
-  file: path=/var/www/vhosts/{{ domain }} state=directory
+  command: mv /var/www/vhosts/projectDir /var/www/vhosts/{{ domain }}
 
-- name: Copies index.html file to remote server
-  become: true
-  copy: src=files/index.html dest=/var/www/vhosts/{{ domain }}/index.html
+##- name: Copies index.html file to remote server
+##  become: true
+##  copy: src=files/index.html dest=/var/www/vhosts/{{ domain }}/index.html
+
