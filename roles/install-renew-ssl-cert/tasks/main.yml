@@ -1,4 +1,22 @@
 ---
 
-## Check if ssl cert is already installed
-## 
+## Update the system
+- name: Upgrade server
+  become: true
+  apt: upgrade=dist update_cache=yes
+
+- name: Install software-properties-common
+  become: true
+  apt: name=software-properties-common state=latest
+
+- name: add repository ppa:certbot/certbot
+  become: true
+  apt_repository: repo='ppa:certbot/certbot' state=present
+
+- name: Upgrade server
+  become: true
+  apt: upgrade=dist update_cache=yes
+
+- name: Install python-certbot-nginx
+  become: true
+  apt: name=python-certbot-nginx state=latest
