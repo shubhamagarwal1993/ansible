@@ -1,4 +1,4 @@
-- hosts: webservers
+- hosts: pahlakhat
   roles:
     - ping-servers
     - update-upgrade-servers
