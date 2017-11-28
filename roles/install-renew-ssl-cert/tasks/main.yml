@@ -20,3 +20,24 @@
 - name: Install python-certbot-nginx
   become: true
   apt: name=python-certbot-nginx state=latest
+
+- name: Install python-pexpect
+  become: true
+  apt: name=python-pexpect state=latest
+
+## Obtain and install cert, and update nginx
+# command: sh sc.sh -> Tested with this
+- name: Update nginx with certbot
+  become: true
+  expect:
+    command: certbot --nginx
+    responses:
+      'Enter email address': '{{ email }}'
+      '\(A\)gree\/\(C\)ancel': 'A'
+      '\(Y\)es\/\(N\)o': 'N'
+      'Select the appropriate numbers separated by commas': ''
+    timeout: 600
+    echo: yes
+  register: prompt
+- debug:
+    var: prompt.stdout_lines
