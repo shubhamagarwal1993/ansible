@@ -1,0 +1,30 @@
+---
+
+##
+## CRON CONFIG
+##
+## Ansible cron config protips: (docs: http://docs.ansible.com/ansible/cron_module.html)
+##
+## - You can remove one of the crons below by adding `state=absent`
+##   Ansible uses the `name` argument to keep track of crons.
+##   If you change the state, use the same name.
+##
+## - Time fields include:
+##     - minute (0 - 59)
+##     - hour (0 - 23)
+##     - day (of month) (1 - 31)
+##     - month (1 - 12)
+##     - weekday (0 - 6, e.g. sun - sat)
+##
+## - Special time fields include (e.g. `cron: special_time=reboot job="..."`):
+##     - reboot
+##     - yearly
+##     - monthly
+##     - weekly
+##     - daily
+##     - hourly
+##
+
+## SSL cert renew
+- name: SSL certbot cert daily renew
+  cron: name="certbot renew" minute="0" hour="3" job="certbot renew" state=present

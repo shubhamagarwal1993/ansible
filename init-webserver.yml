@@ -6,4 +6,5 @@
 #    - clone-git-master
 #    - install-nginx
 #    - install-renew-ssl-cert
+    - cronjobs
 #    - install-supervisor
