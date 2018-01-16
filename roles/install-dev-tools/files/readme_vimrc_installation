@@ -1,0 +1,8 @@
+Paste entire vimrc file in ~/.vimrc
+
+Step1: Git clone the following
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+Step2: Open vim
+Launch vim by typing vim
+Run :PluginInstall
