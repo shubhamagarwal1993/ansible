@@ -1,10 +1,10 @@
 - hosts: pahlakhat
   roles:
-#    - ping-servers
-#    - update-upgrade-servers
-#    - install-dev-tools
-#    - clone-git-master
-#    - install-nginx
-#    - install-renew-ssl-cert
+    - ping-servers
+    - update-upgrade-servers
+    - install-dev-tools
+    - clone-git-master
+    - install-nginx
+    - install-renew-ssl-cert
     - cronjobs
-#    - install-supervisor
+    - install-supervisor
